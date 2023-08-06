@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from django.core.exceptions import ImproperlyConfigured
 import os
 import json
 
@@ -54,9 +55,9 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS = [
-    'pathguide',
-    'placeinfo',
     'obstacle',
+    'path',
+    'place',
     'review',
 ]
 
