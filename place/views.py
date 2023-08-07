@@ -10,30 +10,30 @@ from django.http import Http404
 
 # 문화 시설 정보
 class FacilityDetail(APIView):
-    def get(self, request, name):
-        facility = get_object_or_404(Facility, name=name)
+    def get(self, request, fac_name):
+        facility = get_object_or_404(Facility, name=fac_name)
         serializer = FacilitySerializer(facility)
         return Response(serializer.data)
 
 # 지하철 역 정보
 class StationDetail(APIView):
-    def get(self, request, name):
-        station = get_object_or_404(Station, name=name)
+    def get(self, request, stat_name):
+        station = get_object_or_404(Station, name=stat_name)
         serializer = StationSerializer(station)
         return Response(serializer.data)
 
 # 문화 시설의 편의 시설
 class FacAmenityDetail(APIView):
-    def get(self, request, name):
-        facility = Facility.objects.get(name=name)
+    def get(self, request, fac_name):
+        facility = Facility.objects.get(name=fac_name)
         fac_amenities = FacAmenity.objects.filter(fac_name=facility)
         serializer = FacAmenitySerializer(fac_amenities, many=True)
         return Response(serializer.data)
 
 # 지하철 역의 편의 시설
 class StatAmenityDetail(APIView):
-    def get(self, request, name):
-        station = Station.objects.get(name=name)
+    def get(self, request, stat_name):
+        station = Station.objects.get(name=stat_name)
         stat_amenities = StatAmenity.objects.filter(stat_name=station)
         serializer = StatAmenitySerializer(stat_amenities, many=True)
         return Response(serializer.data)
