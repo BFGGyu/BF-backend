@@ -18,7 +18,7 @@ class RouteList(APIView):
         serializer = RouteSerializer(routes, many=True)
         return Response(serializer.data)
     
-# 경로상 장애물 좌표 출력
+# 경로상 장애물 정보 출력
 class ObstacleList(APIView):
     def get(self, request, departure, arrival):
         path_id = Path.objects.get(departure=departure, arrival=arrival)
