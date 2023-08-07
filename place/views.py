@@ -8,6 +8,20 @@ from django.http import Http404
 
 # Create your views here.
 
+# 문화 시설 정보
+class FacilityDetail(APIView):
+    def get(self, request, name):
+        facility = get_object_or_404(Facility, name=name)
+        serializer = FacilitySerializer(facility)
+        return Response(serializer.data)
+
+# 지하철 역 정보
+class StationDetail(APIView):
+    def get(self, request, name):
+        station = get_object_or_404(Station, name=name)
+        serializer = StationSerializer(station)
+        return Response(serializer.data)
+
 # 문화 시설의 편의 시설
 class FacAmenityDetail(APIView):
     def get(self, request, name):
