@@ -13,8 +13,8 @@ class ReviewList(APIView):
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data)
     
-    def post(self, reqeust):
-        serializer = ReviewSerializer(data=reqeust.data)
+    def post(self, request):
+        serializer = ReviewSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
