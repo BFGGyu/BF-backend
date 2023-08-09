@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Review
 from .serializers import ReviewSerializer
+from path.models import Path
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -14,6 +15,15 @@ class ReviewList(APIView):
         return Response(serializer.data)
     
     def post(self, request):
+        departure = request.data.get('departure')
+        arrival = request.data.get('arrival')
+        
+        try:
+            path = Path.objects.get(departure=departure, arrival=arrival)
+        except Path.DoesNotExist:
+            return Response({"error": "경로를 찾을 수 없습니다!"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        request.data['path_id'] = path.id        
         serializer = ReviewSerializer(data=request.data)
 
         if serializer.is_valid():
