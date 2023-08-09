@@ -32,13 +32,22 @@ class ReviewList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class ReviewDetail(APIView):
-    def get(self, request, id):
-        review = get_object_or_404(Review, id=id)
+    def get(self, request, departure, arrival, writer):
+        try:
+            path = Path.objects.get(departure=departure, arrival=arrival)
+        except Path.DoesNotExist:
+            raise Http404
+
+        try:
+            review = Review.objects.get(path_id=path.id, writer=writer)
+        except Review.DoesNotExist:
+            raise Http404
+            
         serializer = ReviewSerializer(review)
         return Response(serializer.data)
-    
-    def put(self, request, id):
-        review = get_object_or_404(Review, id=id)
+
+    def put(self, request, departure, arrival, writer):
+        review = get_object_or_404(Review, writer=writer)
         serializer = ReviewSerializer(review, data=request.data)
 
         if serializer.is_valid():
@@ -46,7 +55,7 @@ class ReviewDetail(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, stauts=status.HTTP_400_BAD_REQUEST)
     
-    def delete(self, request, id):
-        review = get_object_or_404(Review, id=id)
+    def delete(self, request, departure, arrival, writer):
+        review = get_object_or_404(Review, writer=writer)
         review.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
