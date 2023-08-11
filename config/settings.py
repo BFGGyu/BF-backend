@@ -159,23 +159,16 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-DATABASES = {
+DATABASE = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'wheelp',
+        'USER':'admin',
+        'PASSWORD':get_secret("DB_PASSWORD"),
+        'HOST': get_secret("DB_HOST"),
+        'PORT': '3306',
     }
 }
-
-# DATABASE = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'wheelp',
-#         'USER':'admin',
-#         'PASSWORD':get_secret("DB_PASSWORD"),
-#         'HOST': get_secret("DB_HOST"),
-#         'PORT': '3306',
-#     }
-# }
 
 # AWS 권한 설정
 AWS_ACCESS_KEY_ID = get_secret('AWS_ACCESS_KEY_ID')
