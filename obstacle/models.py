@@ -7,8 +7,8 @@ class Obstacle(models.Model):
     path_id = models.ForeignKey(Path, on_delete=models.CASCADE)
     type = models.ForeignKey('ObsType', on_delete=models.CASCADE)
 
-    latitude = models.DecimalField(default = 0, max_digits=9, decimal_places=6)
-    longitude = models.DecimalField(default = 0, max_digits=9, decimal_places=6)
+    latitude = models.CharField(max_length=20)
+    longitude = models.CharField(max_length=20)
     explanation = models.TextField(blank=True, null=True)
 
     def __str__(self):

@@ -16,8 +16,8 @@ class Facility(models.Model):
     address = models.TextField()
     opening_time = models.TimeField(default='09:00:00')
     closing_time = models.TimeField(default='18:00:00')
-    latitude = models.DecimalField(default = 0, max_digits=9, decimal_places=6)
-    longitude = models.DecimalField(default = 0, max_digits=9, decimal_places=6)
+    latitude = models.CharField(max_length=20)
+    longitude = models.CharField(max_length=20)
     
     def __str__(self):
 	    return self.name
@@ -26,8 +26,8 @@ class Station(models.Model):
 	name = models.CharField(max_length = 50, primary_key = True)
 
 	line = models.IntegerField()
-	latitude = models.DecimalField(default = 0, max_digits=9, decimal_places=6)
-	longitude = models.DecimalField(default = 0, max_digits=9, decimal_places=6)
+	latitude = models.CharField(max_length=20)
+	longitude = models.CharField(max_length=20)
 	
 	def __str__(self):
 	    return self.name
