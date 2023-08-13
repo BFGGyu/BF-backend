@@ -71,7 +71,8 @@ INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [ 
-    '*'
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
 ]
 
 MIDDLEWARE = [
@@ -108,12 +109,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASE = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'wheelp',
-        'USER':'admin',
-        'PASSWORD':get_secret("DB_PASSWORD"),
+        'NAME': "wheelpass",
+        'USER':'root',
+        'PASSWORD': get_secret("DB_PASSWORD"),
         'HOST': get_secret("DB_HOST"),
         'PORT': '3306',
     }
