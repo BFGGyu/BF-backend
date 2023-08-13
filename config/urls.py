@@ -23,4 +23,7 @@ urlpatterns = [
     path('place/', include('place.urls')),
     path('path/', include('path.urls')),
     path('obstacle/', include('obstacle.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('dj_rest_auth.urls')),
+    path('accounts/', include('allauth.urls')),
 ]

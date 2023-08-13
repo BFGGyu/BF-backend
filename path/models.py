@@ -16,8 +16,8 @@ class Path(models.Model):
 class Route(models.Model):
     id = models.AutoField(primary_key = True)
     path_id = models.ForeignKey(Path, on_delete=models.CASCADE)
-    latitude = models.DecimalField(default = 0, max_digits=9, decimal_places=6)
-    longitude = models.DecimalField(default = 0, max_digits=9, decimal_places=6)
+    latitude = models.CharField(max_length=20)
+    longitude = models.CharField(max_length=20)
     
     def __str__(self):
         path_name = f'{self.path_id.departure.name}-{self.path_id.arrival.name}'
