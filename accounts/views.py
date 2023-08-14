@@ -106,20 +106,22 @@ class KakaoCallback(APIView):
     def post(self, request):
         client_id = secrets.get("CLIENT_ID")
         code = request.data.get('code')
-
         # 카카오에 access token 요청
         token_req = requests.post(f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={KAKAO_CALLBACK_URI}&code={code}")
         token_req_json = token_req.json()
-
+        print('code:', code)
+        print('token_req_json:', token_req_json)
+        
         # access token으로 카카오 사용자 정보 요청
         access_token = token_req_json.get('access_token')
+        print('access_token:', access_token)
         user_info_req = requests.get('https://kapi.kakao.com/v2/user/me', headers={'Authorization': f'Bearer {access_token}'})
         user_info_req_json = user_info_req.json()
-		
+        print('user_info_req_json:', user_info_req_json)
         # 카카오 사용자 정보에서 이메일과 닉네임 가져오기
         kakao_email = user_info_req_json.get('kakao_account', {}).get('email', None)
         kakao_nickname = user_info_req_json.get('properties', {}).get('nickname', None)
-
+        print('kakao_email, kakao_nickname:', kakao_email, kakao_nickname)
         # 카카오 이메일로 회원 확인 및 생성
         User = get_user_model()
 
