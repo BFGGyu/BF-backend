@@ -93,19 +93,19 @@ import json
 with open('secrets.json') as secrets_file:
     secrets = json.load(secrets_file)
 
-KAKAO_CALLBACK_URI = 'http://localhost:8000/accounts/kakao/callback/'
+KAKAO_CALLBACK_URI = 'http://localhost:3000/login'
 
 class KakaoLogin(APIView):
     def get(self, request):
         client_id = secrets.get("CLIENT_ID")
-        redirect_uri = "http://localhost:8000/accounts/kakao/callback/"
+        redirect_uri = "http://localhost:3000/login"
 
         return redirect(f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code")
 
 class KakaoCallback(APIView):
-    def get(self, request):
+    def post(self, request):
         client_id = secrets.get("CLIENT_ID")
-        code = request.GET.get('code')
+        code = request.data.get('code')
 
         # 카카오에 access token 요청
         token_req = requests.post(f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={KAKAO_CALLBACK_URI}&code={code}")
@@ -148,7 +148,7 @@ class KakaoCallback(APIView):
             "access_token": access_token,
             "refresh_token": refresh_token,
             "message": "카카오 소셜 로그인 성공",
-            "username" : user.username
+            "nickname" : user.username
         }, status=status.HTTP_200_OK)
     
     def generate_unused_username(self, User, base_username):
