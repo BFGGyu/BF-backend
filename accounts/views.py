@@ -88,19 +88,23 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from allauth.socialaccount.providers.kakao import views as kakao_view
 from dj_rest_auth.registration.views import SocialLoginView
 from rest_framework_simplejwt.serializers import RefreshToken
+import json
+
+with open('secrets.json') as secrets_file:
+    secrets = json.load(secrets_file)
 
 KAKAO_CALLBACK_URI = 'http://localhost:8000/accounts/kakao/callback/'
 
 class KakaoLogin(APIView):
     def get(self, request):
-        client_id = "39ee7949c32c319a694d1daf16292d89"
+        client_id = secrets.get("CLIENT_ID")
         redirect_uri = "http://localhost:8000/accounts/kakao/callback/"
 
         return redirect(f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code")
 
 class KakaoCallback(APIView):
     def get(self, request):
-        client_id = "39ee7949c32c319a694d1daf16292d89"
+        client_id = secrets.get("CLIENT_ID")
         code = request.GET.get('code')
 
         # 카카오에 access token 요청
@@ -111,7 +115,7 @@ class KakaoCallback(APIView):
         access_token = token_req_json.get('access_token')
         user_info_req = requests.get('https://kapi.kakao.com/v2/user/me', headers={'Authorization': f'Bearer {access_token}'})
         user_info_req_json = user_info_req.json()
-        
+		
         # 카카오 사용자 정보에서 이메일과 닉네임 가져오기
         kakao_email = user_info_req_json.get('kakao_account', {}).get('email', None)
         kakao_nickname = user_info_req_json.get('properties', {}).get('nickname', None)
