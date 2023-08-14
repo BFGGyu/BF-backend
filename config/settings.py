@@ -147,18 +147,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': "wheelpass",
-    #     'USER':'root',
-    #     'PASSWORD': get_secret("DB_PASSWORD"),
-    #     'HOST': get_secret("DB_HOST"),
-    #     'PORT': '3306',
-    # }
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+	'default': {
+		'ENGINE': 'django.db.backends.mysql',
+		'NAME': 'wheelpass',
+		'USER': get_secret("DB_USER"),
+		'PASSWORD': get_secret("DB_PASSWORD"),
+		'HOST': get_secret("DB_HOST"),
+		'PORT': '3306' #mysql은 3306 포트를 사용
+	}
 }
 
 # Password validation
@@ -218,19 +214,19 @@ SIMPLE_JWT = {
     'TOKEN_USER_CLASS': 'accounts.Member',
 }
 
-# # AWS 권한 설정
-# AWS_ACCESS_KEY_ID = get_secret('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY = get_secret('AWS_SECRET_ACCESS_KEY')
-# AWS_REGION = 'ap-northeast-2'
+# AWS 권한 설정
+AWS_ACCESS_KEY_ID = get_secret('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = get_secret('AWS_SECRET_ACCESS_KEY')
+AWS_REGION = 'ap-northeast-2'
 
-# # AWS S3 버킷 이름
-# AWS_STORAGE_BUCKET_NAME = 'wheelp'
+# AWS S3 버킷 이름
+AWS_STORAGE_BUCKET_NAME = 'wheelpass'
 
-# # AWS S3 버킷의 URL
-# AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME,AWS_REGION)
+# AWS S3 버킷의 URL
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME,AWS_REGION)
 
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',
-# }
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
 
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
