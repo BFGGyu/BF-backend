@@ -10,7 +10,7 @@ class Facility(models.Model):
 	)
     
     id = models.AutoField(primary_key = True)
-    name = models.CharField(max_length=50, primary_key=True)
+    name = models.CharField(max_length=50)
 
     type = models.CharField(choices=CHOICES, max_length=20)
     contact = models.CharField(max_length=20)
