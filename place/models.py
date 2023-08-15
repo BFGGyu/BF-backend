@@ -9,14 +9,14 @@ class Facility(models.Model):
         ('exhibition', '전시회')
 	)
     
-    id = models.AutoField(primary_key = True)
+    id = models.AutoField(primary_key = True, default = '')
     name = models.CharField(max_length=50)
 
     type = models.CharField(choices=CHOICES, max_length=20)
     contact = models.CharField(max_length=20)
     address = models.TextField()
-    opening_time = models.TimeField(default='09:00:00')
-    closing_time = models.TimeField(default='18:00:00')
+    opening_time = models.TimeField(default='09:00')
+    closing_time = models.TimeField(default='18:00')
     latitude = models.CharField(max_length=20)
     longitude = models.CharField(max_length=20)
     
