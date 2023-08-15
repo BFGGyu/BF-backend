@@ -153,7 +153,10 @@ DATABASES = {
 		'USER': get_secret("DB_USER"),
 		'PASSWORD': get_secret("DB_PASSWORD"),
 		'HOST': get_secret("DB_HOST"),
-		'PORT': '3306' #mysql은 3306 포트를 사용
+		'PORT': '3306', #mysql은 3306 포트를 사용
+        'OPTIONS': {
+                    'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+                }
 	}
 }
 

@@ -4,9 +4,9 @@ from django.db import models
 class Facility(models.Model):
     
     CHOICES = (
-        ('MUSEUM', '박물관'),
-        ('ART GALLERY', '미술관'),
-        ('EXHIBITION', '전시회')
+        ('museum', '박물관'),
+        ('artGallery', '미술관'),
+        ('exhibition', '전시회')
 	)
 
     name = models.CharField(max_length=50, primary_key=True)
