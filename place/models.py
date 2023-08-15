@@ -8,7 +8,8 @@ class Facility(models.Model):
         ('artGallery', '미술관'),
         ('exhibition', '전시회')
 	)
-
+    
+    id = models.AutoField(primary_key = True)
     name = models.CharField(max_length=50, primary_key=True)
 
     type = models.CharField(choices=CHOICES, max_length=20)
