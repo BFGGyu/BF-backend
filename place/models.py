@@ -18,6 +18,7 @@ class Facility(models.Model):
     closing_time = models.CharField(max_length=10)
     latitude = models.CharField(max_length=20)
     longitude = models.CharField(max_length=20)
+    imageSrc = models.TextField()
     
     def __str__(self):
 	    return self.name
