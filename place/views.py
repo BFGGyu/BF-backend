@@ -14,6 +14,13 @@ class FacilityDetail(APIView):
         facility = get_object_or_404(Facility, name=fac_name)
         serializer = FacilitySerializer(facility)
         return Response(serializer.data)
+    
+class FacilityList(APIView):
+    def get(self, request, format=None):
+        facilities = Facility.objects.all()
+				# 많은 post들을 받아오려면 (many=True) 써줘야 한다! 이렇게 에러뜨는 경우가 생각보다 많다.
+        serializer = FacilitySerializer(facilities, many=True)
+        return Response(serializer.data)
 
 # 지하철 역 정보
 class StationDetail(APIView):
