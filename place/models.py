@@ -14,8 +14,8 @@ class Facility(models.Model):
     type = models.CharField(choices=CHOICES, max_length=20)
     contact = models.CharField(max_length=20)
     address = models.TextField()
-    opening_time = models.TimeField(default='09:00')
-    closing_time = models.TimeField(default='18:00')
+    opening_time = models.CharField(max_length=10)
+    closing_time = models.CharField(max_length=10)
     latitude = models.CharField(max_length=20)
     longitude = models.CharField(max_length=20)
     
