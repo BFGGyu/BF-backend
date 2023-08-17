@@ -18,15 +18,15 @@ class Facility(models.Model):
     closing_time = models.CharField(max_length=10)
     latitude = models.CharField(max_length=20)
     longitude = models.CharField(max_length=20)
-    imageSrc = models.TextField()
+    imageSrc = models.TextField(default="")
     
     def __str__(self):
 	    return self.name
 
 class Station(models.Model):
-	name = models.CharField(max_length = 50)
 	id = models.AutoField(primary_key=True)
-	#fac_station = models.ForeignKey(Facility, on_delete=models.CASCADE)
+	name = models.CharField(max_length = 50)
+	fac_name = models.ForeignKey(Facility, on_delete=models.CASCADE)
 
 	line = models.IntegerField()
 	latitude = models.CharField(max_length=20)

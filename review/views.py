@@ -6,12 +6,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
+from place.models import Station, Facility
 
 # Create your views here.
 class ReviewList(APIView):
-    def get(self, request, departure, arrival):
+    def get(self, request, arrival):
         try:
-            path = Path.objects.get(departure=departure, arrival=arrival)
+            arrival_facility = Facility.objects.get(name=arrival)
+            path = Path.objects.get(arrival=arrival_facility)
         except Path.DoesNotExist:
             raise Http404
 
@@ -19,9 +21,10 @@ class ReviewList(APIView):
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data)
 
-    def post(self, request,departure, arrival):
+    def post(self, request, arrival):
         try:
-            path = Path.objects.get(departure=departure, arrival=arrival)
+            arrival_facility = Facility.objects.get(name=arrival)
+            path = Path.objects.get(arrival=arrival_facility)
         except Path.DoesNotExist:
             raise Http404
         
@@ -34,9 +37,10 @@ class ReviewList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 class ReviewDetail(APIView):             
-    def get(self, request, departure, arrival, writer):          
+    def get(self, request, arrival, writer):          
         try:
-            path = Path.objects.get(departure=departure, arrival=arrival)
+            arrival_facility = Facility.objects.get(name=arrival)
+            path = Path.objects.get(arrival=arrival_facility)
         except Path.DoesNotExist:
             raise Http404
 
@@ -48,9 +52,10 @@ class ReviewDetail(APIView):
         serializer = ReviewSerializer(review)
         return Response(serializer.data)
 
-    def put(self, request, departure, arrival, writer):
+    def put(self, request,arrival, writer):
         try:
-            path = Path.objects.get(departure=departure, arrival=arrival)
+            arrival_facility = Facility.objects.get(name=arrival)
+            path = Path.objects.get(arrival=arrival_facility)
         except Path.DoesNotExist:
             raise Http404
 
@@ -66,9 +71,10 @@ class ReviewDetail(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def delete(self, request, departure, arrival, writer):
+    def delete(self, request,arrival, writer):
         try:
-            path = Path.objects.get(departure=departure, arrival=arrival)
+            arrival_facility = Facility.objects.get(name=arrival)
+            path = Path.objects.get(arrival=arrival_facility)
         except Path.DoesNotExist:
             raise Http404
 
