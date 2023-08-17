@@ -93,12 +93,12 @@ import json
 with open('secrets.json') as secrets_file:
     secrets = json.load(secrets_file)
 
-KAKAO_CALLBACK_URI = 'http://localhost:3000/login'
+KAKAO_CALLBACK_URI = 'https://wheelpass.shop/login'
 
 class KakaoLogin(APIView):
     def get(self, request):
         client_id = secrets.get("CLIENT_ID")
-        redirect_uri = "http://localhost:3000/login"
+        redirect_uri = "https://wheelpass.shop/login"
 
         return redirect(f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code")
 
