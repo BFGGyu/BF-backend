@@ -50,7 +50,6 @@ CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:3000' ,'http://127.0.0.1:3000','https://wheel-pass.kro.kr','https://wheelpass.shop']
 
-CORS_REPLACE_HTTPS_REFERER = True
 
 # Application definition
 
@@ -127,6 +126,7 @@ CORS_ALLOWED_ORIGINS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
