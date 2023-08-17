@@ -7,13 +7,18 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
+from place.models import Station, Facility
 
 # Create your views here.
 # 경로 좌표 출력
 class RouteList(APIView):
+    
     def get(self, request, departure, arrival):
         try:
-            path = Path.objects.get(departure=departure, arrival=arrival)
+            departure_facility = Station.objects.get(name=departure)
+            arrival_facility = Facility.objects.get(name=arrival)
+            #path = Path.objects.get(departure__id=departure, arrival__id=arrival)
+            path = Path.objects.get(departure=departure_facility, arrival=arrival_facility)
         except Path.DoesNotExist:
             raise Http404
         
@@ -26,11 +31,13 @@ class RouteList(APIView):
         arrival_longitude = path.arrival.longitude
 
         departure_info = {
+            "name": path.departure.name,
             "latitude": departure_latitude,
             "longitude": departure_longitude
         }
         
         arrival_info = {
+            "name": path.arrival.name,
             "latitude": arrival_latitude,
             "longitude": arrival_longitude
         }

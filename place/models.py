@@ -10,7 +10,7 @@ class Facility(models.Model):
 	)
 	
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50, unique = True)
+    name = models.CharField(max_length=50, unique=True)
     type = models.CharField(choices=CHOICES, max_length=20)
     contact = models.CharField(max_length=20)
     address = models.TextField()
@@ -26,6 +26,7 @@ class Facility(models.Model):
 class Station(models.Model):
 	name = models.CharField(max_length = 50)
 	id = models.AutoField(primary_key=True)
+	#fac_station = models.ForeignKey(Facility, on_delete=models.CASCADE)
 
 	line = models.IntegerField()
 	latitude = models.CharField(max_length=20)
