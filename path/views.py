@@ -13,12 +13,12 @@ from place.models import Station, Facility
 # 경로 좌표 출력
 class RouteList(APIView):
     
-    def get(self, request, departure, arrival):
+    def get(self, request, arrival):
         try:
-            departure_facility = Station.objects.get(name=departure)
+            #departure_facility = Station.objects.get(name=departure)
             arrival_facility = Facility.objects.get(name=arrival)
             #path = Path.objects.get(departure__id=departure, arrival__id=arrival)
-            path = Path.objects.get(departure=departure_facility, arrival=arrival_facility)
+            path = Path.objects.get(arrival=arrival_facility)
         except Path.DoesNotExist:
             raise Http404
         
