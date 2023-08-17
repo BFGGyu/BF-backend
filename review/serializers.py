@@ -11,7 +11,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = ['id', 'departure', 'arrival', 'writer', 'rating', 'comment', 'created_at', 'updated_at', 'path_id']
 
     def get_departure(self, obj):
-        return obj.path_id.departure.name if obj.path_id else None
-    
+        return obj.path_id.departure if obj.path_id else None
+
     def get_arrival(self, obj):
-        return obj.path_id.arrival.name if obj.path_id else None
+        return obj.path_id.arrival if obj.path_id else None
