@@ -24,3 +24,10 @@ class StatAmenitySerializer(serializers.ModelSerializer):
         model = StatAmenity
 
         fields = "__all__"        
+
+from .models import UserBookmark
+
+class UserBookmarkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserBookmark
+        fields = '__all__'

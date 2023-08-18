@@ -54,3 +54,23 @@ class StatAmenity(models.Model):
 	
 	def __str__(self):
 	    return f'{self.stat_name.name}: {self.name}'
+	
+from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.conf import settings
+
+class UserBookmark(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'facility')
+
+    def __str__(self):
+        return f'{self.user.username} - {self.facility.name}'
+
+    
+	
+	
+	

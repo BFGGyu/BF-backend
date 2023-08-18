@@ -71,3 +71,10 @@ class AuthSerializer(serializers.ModelSerializer):
 		}
 		
         return data
+
+from place.models import UserBookmark
+
+class UserBookmarkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserBookmark
+        fields = '__all__'

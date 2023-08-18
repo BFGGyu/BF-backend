@@ -7,4 +7,6 @@ urlpatterns = [
     path('station/<str:stat_name>/', StationDetail.as_view()),    
     path('facility/amenity/<str:fac_name>/', FacAmenityDetail.as_view()),
     path('station/amenity/<str:stat_name>/', StatAmenityDetail.as_view()),
+    
+	path('user/bookmarks/', UserBookmarkDetail.as_view(), name='user-bookmarks'),
 ]
