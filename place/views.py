@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Facility, Station, FacAmenity, StatAmenity
-from .serializers import FacilitySerializer, StationSerializer, FacAmenitySerializer, StatAmenitySerializer
+from .serializers import FacilitySerializer, StationSerializer, FacAmenitySerializer, StatAmenitySerializer, UserBookmarkSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -43,4 +43,14 @@ class StatAmenityDetail(APIView):
         station = Station.objects.get(name=stat_name)
         stat_amenities = StatAmenity.objects.filter(stat_name=station)
         serializer = StatAmenitySerializer(stat_amenities, many=True)
+        return Response(serializer.data)
+
+from .models import UserBookmark
+
+class UserBookmarkDetail(APIView):
+    # 사용자가 찜한 장소 목록
+    def get(self, request):
+        user = request.user
+        user_bookmarks = UserBookmark.objects.filter(user=user)
+        serializer = UserBookmarkSerializer(user_bookmarks, many=True)
         return Response(serializer.data)
