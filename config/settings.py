@@ -163,7 +163,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.mysql',
-		'NAME': 'wheelpass',
+		'NAME': 'wheelpath',
 		'USER': get_secret("DB_USER"),
 		'PASSWORD': get_secret("DB_PASSWORD"),
 		'HOST': get_secret("DB_HOST"),

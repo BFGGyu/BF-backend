@@ -9,26 +9,27 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('path', '__first__'),
+        ('place', '__first__'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ObsType',
+            name='Path',
             fields=[
-                ('type', models.CharField(max_length=50, primary_key=True, serialize=False)),
-                ('icon', models.ImageField(upload_to='./obstacle/obsIcon')),
+                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('distance', models.FloatField(null=True)),
+                ('duration', models.DurationField(null=True)),
+                ('arrival', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='place.facility')),
+                ('departure', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='place.station')),
             ],
         ),
         migrations.CreateModel(
-            name='Obstacle',
+            name='Route',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('latitude', models.CharField(max_length=20)),
                 ('longitude', models.CharField(max_length=20)),
-                ('explanation', models.TextField(blank=True, null=True)),
                 ('path_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='path.path')),
-                ('type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='obstacle.obstype')),
             ],
         ),
     ]
