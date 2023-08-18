@@ -14,7 +14,7 @@ class Review(BaseModel):
     id = models.AutoField(primary_key=True)
     path_id = models.ForeignKey(Path, on_delete=models.CASCADE)
 
-    writer = models.CharField(max_length=30, default='익명')
+    writer = models.CharField(max_length=30, blank=True, default='익명')
     rating = models.PositiveIntegerField(default=5, blank=True, validators=[MinValueValidator(0), MaxValueValidator(5)])
     comment = models.TextField(null=True)
 
