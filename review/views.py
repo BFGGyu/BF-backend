@@ -23,12 +23,13 @@ class ReviewList(APIView):
 
     def post(self, request, arrival):
         print(request)
+        print(arrival)
         try:
             arrival_facility = Facility.objects.get(name=arrival)
             path = Path.objects.get(arrival=arrival_facility)
         except Path.DoesNotExist:
             raise Http404
-        print(request)
+        
         
         request.data['path_id'] = path.id        
         serializer = ReviewSerializer(data=request.data)
