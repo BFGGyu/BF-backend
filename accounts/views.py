@@ -165,3 +165,23 @@ class KakaoLoginToDjango(SocialLoginView):
     adapter_class = kakao_view.KakaoOAuth2Adapter
     callback_url = KAKAO_CALLBACK_URI
     client_class = OAuth2Client
+
+from .serializers import UserBookmarkSerializer
+from place.models import Facility, UserBookmark
+from rest_framework.permissions import IsAuthenticated
+
+class UserBookmarkView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, arrival):
+        user = request.user
+        arrival_facility = Facility.objects.get(name=arrival)
+
+        try:
+            bookmark, created = UserBookmark.objects.get_or_create(user=user, facility=arrival_facility, arrival=arrival)
+            if created:
+                return Response({"message": "장소를 찜했습니다.", "bookmark_id": bookmark.id}, status=status.HTTP_201_CREATED)
+            else:
+                return Response({"message": "이미 찜한 장소입니다."}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"message": "찜 기능을 처리하는 동안 에러가 발생했습니다."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

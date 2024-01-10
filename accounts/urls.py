@@ -13,4 +13,6 @@ urlpatterns = [
     path('kakao/login/', KakaoLogin.as_view(), name='kakao_login'),
     path('kakao/callback/', KakaoCallback.as_view(), name='kakao_callback'),
     path('kakao/login/finish/', KakaoLoginToDjango.as_view(), name='kakao_login_todjango'),
+    
+	path('bookmark/<str:arrival>/', UserBookmarkView.as_view(), name='user_bookmark'),
 ]
